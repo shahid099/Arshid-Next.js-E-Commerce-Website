@@ -92,7 +92,7 @@ export default function Main() {
       {/* Testimonial */}
       <section className="px-8 py-8 flex gap-8">
         <blockquote className="bg-gray-50 p-6 rounded-md flex-1">
-          <p className="italic mb-2">"Great products, fast shipping, and excellent customer service. Highly recommend!"</p>
+          <p className="italic mb-2">Great products, fast shipping, and excellent customer service. Highly recommend!</p>
           <div className="text-yellow-500">★★★★★</div>
           <p className="mt-1 font-semibold">Sarah W.</p>
         </blockquote>
