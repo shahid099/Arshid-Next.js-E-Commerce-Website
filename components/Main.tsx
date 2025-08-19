@@ -7,10 +7,10 @@ import { trendingProducts, flashSaleProducts } from "../data/products";
 
 import { 
      BannerImg1, 
-     BannerImg2, 
-     BannerImg3, 
-     BannerImg4, 
-     BannerImg5, 
+    //  BannerImg2, 
+    //  BannerImg3, 
+    //  BannerImg4, 
+    //  BannerImg5, 
     } 
     from "../public/assest/banner/index"
 

@@ -1,5 +1,7 @@
 // components/AdminProductForm.tsx
 "use client";
+
+import Image from "next/image";
 import React, { useState } from "react";
 
 type FormState = {
@@ -50,7 +52,7 @@ export default function AdminProductForm() {
       });
 
       if (!res.ok) throw new Error("Failed to save product");
-      const data = await res.json();
+      // const data = await res.json();
       setMessage("Product added successfully.");
       // Reset form
       setForm({ title: "", price: "", category: "", description: "" });
@@ -131,7 +133,7 @@ export default function AdminProductForm() {
 
         <div className="flex items-center gap-4">
           {preview ? (
-            <img src={preview} alt="preview" className="w-28 h-28 object-cover rounded border" />
+            <Image src={preview} alt="preview" className="w-28 h-28 object-cover rounded border" />
           ) : (
             <div className="w-28 h-28 rounded border bg-gray-50 flex items-center justify-center text-sm text-gray-400">
               No preview

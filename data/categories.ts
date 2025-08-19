@@ -3,7 +3,7 @@ import {
      BannerImg2, 
      BannerImg3, 
      BannerImg4, 
-     BannerImg5, 
+    //  BannerImg5, 
     } from "../public/assest/banner/index"; 
 
 export const categories = [

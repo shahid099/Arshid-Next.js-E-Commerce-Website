@@ -1,6 +1,7 @@
 // components/ProductCard.tsx
 "use client";
 import React from "react";
+import Image from "next/image";
 
 export type ProductTile = {
   id: number;
@@ -16,7 +17,7 @@ export default function ProductCard({ product }: { product: ProductTile }) {
     <article className="border rounded-lg bg-white p-3 shadow-sm hover:shadow-md flex flex-col">
       <div className="relative w-full h-56 mb-3 bg-gray-100 rounded overflow-hidden">
         {product.image ? (
-          <img src={product.image} alt={product.title} className="w-full h-full object-cover" />
+          <Image src={product.image} alt={product.title} className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-400">No image</div>
         )}

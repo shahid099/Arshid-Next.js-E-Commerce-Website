@@ -1,7 +1,15 @@
 "use client";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import { Search, Heart, ShoppingCart, User, ChevronDown, Sun, Moon } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  Search,
+  Heart,
+  ShoppingCart,
+  User,
+  ChevronDown,
+  Sun,
+  Moon,
+} from "lucide-react";
 
 interface Suggestion {
   id: number;
@@ -37,7 +45,6 @@ const suggestionsList: Suggestion[] = [
   { id: 20, text: "Portable Projector" },
 ];
 
-
 const Header: React.FC = () => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
@@ -62,25 +69,20 @@ const Header: React.FC = () => {
 
   // Theme toggle function
   const handleThemeToggle = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
-  // Handle Scroll Behavior
-  const handleScroll = () => {
+  // ✅ Handle Scroll Behavior (fixed with useCallback)
+  const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY) {
-      setIsVisible(false); // scrolling down → hide
-    } else {
-      setIsVisible(true); // scrolling up → show
-    }
+    setIsVisible(currentScrollY < lastScrollY);
     setLastScrollY(currentScrollY);
-  };
+  }, [lastScrollY]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [handleScroll]); // ✅ No ESLint warnings now
 
   return (
     <header
@@ -105,12 +107,11 @@ const Header: React.FC = () => {
           <Search className={`absolute left-3 top-2.5 ${theme}`} size={20} />
           {/* Auto-suggestions */}
           {suggestions.length > 0 && (
-            <ul className={`absolute mt-1 w-full rounded-md shadow-lg border border-gray-200 z-50 ${theme}`}>
+            <ul
+              className={`absolute mt-1 w-full rounded-md shadow-lg border border-gray-200 z-50 ${theme}`}
+            >
               {suggestions.map((s) => (
-                <li
-                  key={s.id}
-                  className={`cursor-pointer px-4 py-2 ${theme}`}
-                >
+                <li key={s.id} className={`cursor-pointer px-4 py-2 ${theme}`}>
                   {s.text}
                 </li>
               ))}
@@ -146,12 +147,11 @@ const Header: React.FC = () => {
                 <ChevronDown className="ml-1" size={16} />
               </div>
               {/* Dropdown */}
-              <ul className={`absolute hidden mt-2 w-44 rounded-md shadow-lg border group-hover:block ${theme}`}>
+              <ul
+                className={`absolute hidden mt-2 w-44 rounded-md shadow-lg border group-hover:block ${theme}`}
+              >
                 {cat.sub.map((sub) => (
-                  <li
-                    key={sub}
-                    className={`px-4 py-2 cursor-pointer ${theme}`}
-                  >
+                  <li key={sub} className={`px-4 py-2 cursor-pointer ${theme}`}>
                     {sub}
                   </li>
                 ))}
