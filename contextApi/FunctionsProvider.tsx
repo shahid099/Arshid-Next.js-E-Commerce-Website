@@ -7,11 +7,46 @@ interface FunctionsProviderProps {
 }
 
 const FunctionsProvider: React.FC<FunctionsProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<string>("Muhammad Shahid");
+
+
+  // State to manage user data and login status
+  const [user, setUser] = useState<any>('');
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
+
+  const fetchUser = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const res = await fetch(`/api/get-user?token=${token}`, {
+        method: "GET",
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data.user);
+        setIsUserLoggedIn(true);
+      } else {
+        setUser('');
+        setIsUserLoggedIn(false);
+      }
+    } catch (err) {
+      console.error("Error fetching user:", err);
+      setUser('');
+      setIsUserLoggedIn(false);
+    }
+  };
+
+  // useEffect(() => {
+  //   fetchUser();
+  // }, []);
+
+
 
   const value: MyContextType = {
-    user,
     setUser,
+    isUserLoggedIn,
+    fetchUser,
   };
 
   return (
