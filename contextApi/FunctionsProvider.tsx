@@ -44,6 +44,7 @@ const FunctionsProvider: React.FC<FunctionsProviderProps> = ({ children }) => {
 
 
   const value: MyContextType = {
+    user,
     setUser,
     isUserLoggedIn,
     fetchUser,
